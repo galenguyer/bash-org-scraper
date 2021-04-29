@@ -4,7 +4,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-QUOTES = {}
+QUOTES = []
 
 
 def get_page(pagenum: int) -> None:
@@ -19,7 +19,7 @@ def get_page(pagenum: int) -> None:
         quote["content"] = str(quotes[i].text)
         quote["id"] = id
         quote["points"] = points
-        QUOTES[id] = quote
+        QUOTES.append(quote)
 
 
 def main():
@@ -29,7 +29,7 @@ def main():
         sleep(1)
     print(json.dumps(QUOTES, indent=4))
     with open("quotes.json", "w") as fd:
-        fd.write(json.dump(QUOTES, indent=4))
+        fd.write(json.dumps(QUOTES, indent=4))
 
 
 if __name__ == "__main__":
